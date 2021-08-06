@@ -1,0 +1,87 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <title>Coverage Report > ProductRepository</title>
+  <style type="text/css">
+    @import "../../.css/coverage.css";
+    @import "../../.css/highlight-idea.css";
+  </style>
+  <script type="text/javascript" src="../../.js/highlight.pack.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">com.intuit.app.repository</a>
+</div>
+
+<h1>Coverage Summary for Class: ProductRepository (com.intuit.app.repository)</h1>
+
+<table class="coverageStats">
+
+<tr>
+  <th class="name">Class</th>
+</tr>
+  <tr>
+    <td class="name">ProductRepository$MockitoMock$1671068758</td>
+  </tr>
+  <tr>
+    <td class="name">ProductRepository$MockitoMock$1671068758$auxiliary$CIhrdyon</td>
+  </tr>
+  <tr>
+    <td class="name">ProductRepository$MockitoMock$1671068758$auxiliary$xQiAiWiV</td>
+  </tr>
+<tr>
+  <td class="name"><strong>Total</strong></td>
+</tr>
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<div class="sourceCode" id="sourceCode"><i class="no-highlight">1</i>&nbsp;package com.intuit.app.repository;
+<i class="no-highlight">2</i>&nbsp;
+<i class="no-highlight">3</i>&nbsp;import com.intuit.app.entity.Product;
+<i class="no-highlight">4</i>&nbsp;import org.springframework.data.mongodb.repository.ReactiveMongoRepository;
+<i class="no-highlight">5</i>&nbsp;import org.springframework.stereotype.Repository;
+<i class="no-highlight">6</i>&nbsp;
+<i class="no-highlight">7</i>&nbsp;@Repository
+<i class="no-highlight">8</i>&nbsp;public interface ProductRepository extends ReactiveMongoRepository&lt;Product, String&gt;, ProductCustomQueryRepo {
+<i class="no-highlight">9</i>&nbsp;}
+</div>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+        var codeBlock = document.getElementById('sourceCode');
+
+        if (codeBlock) {
+            hljs.highlightBlock(codeBlock);
+        }
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2021-08-06 01:11</div>
+</div>
+</body>
+</html>

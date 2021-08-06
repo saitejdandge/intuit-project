@@ -1,0 +1,194 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <title>Coverage Report > ProductService</title>
+  <style type="text/css">
+    @import "../../.css/coverage.css";
+    @import "../../.css/highlight-idea.css";
+  </style>
+  <script type="text/javascript" src="../../.js/highlight.pack.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">com.intuit.app.service</a>
+</div>
+
+<h1>Coverage Summary for Class: ProductService (com.intuit.app.service)</h1>
+
+<table class="coverageStats">
+
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">ProductService</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (7/7)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (17/17)
+  </span>
+</td>
+</tr>
+  <tr>
+    <td class="name">ProductService$MockitoMock$1099605230</td>
+  </tr>
+  <tr>
+    <td class="name">ProductService$MockitoMock$1099605230$auxiliary$4iEQJLd9</td>
+  </tr>
+  <tr>
+    <td class="name">ProductService$MockitoMock$1099605230$auxiliary$cbo7pEgH</td>
+  </tr>
+  <tr>
+    <td class="name">ProductService$MockitoMock$1099605230$auxiliary$F9Tif1K9</td>
+  </tr>
+  <tr>
+    <td class="name">ProductService$MockitoMock$1099605230$auxiliary$fqkemSFb</td>
+  </tr>
+  <tr>
+    <td class="name">ProductService$MockitoMock$1099605230$auxiliary$KN3xa2fy</td>
+  </tr>
+  <tr>
+    <td class="name">ProductService$MockitoMock$1099605230$auxiliary$p9mvVWDl</td>
+  </tr>
+  <tr>
+    <td class="name">ProductService$MockitoMock$1099605230$auxiliary$pzkPG5Wt</td>
+  </tr>
+  <tr>
+    <td class="name">ProductService$MockitoMock$1099605230$auxiliary$Y6BGyuaG</td>
+  </tr>
+<tr>
+  <td class="name"><strong>Total</strong></td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (7/7)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (17/17)
+  </span>
+</td>
+</tr>
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<div class="sourceCode" id="sourceCode"><i class="no-highlight">1</i>&nbsp;package com.intuit.app.service;
+<i class="no-highlight">2</i>&nbsp;
+<i class="no-highlight">3</i>&nbsp;import com.intuit.app.entity.Product;
+<i class="no-highlight">4</i>&nbsp;import com.intuit.app.exceptions.BaseException;
+<i class="no-highlight">5</i>&nbsp;import com.intuit.app.exceptions.ErrorCodes;
+<i class="no-highlight">6</i>&nbsp;import com.intuit.app.exceptions.ResponseWrapper;
+<i class="no-highlight">7</i>&nbsp;import com.intuit.app.repository.ProductRepository;
+<i class="no-highlight">8</i>&nbsp;import org.springframework.stereotype.Service;
+<i class="no-highlight">9</i>&nbsp;import reactor.core.publisher.Flux;
+<i class="no-highlight">10</i>&nbsp;import reactor.core.publisher.Mono;
+<i class="no-highlight">11</i>&nbsp;
+<i class="no-highlight">12</i>&nbsp;import javax.validation.Valid;
+<i class="no-highlight">13</i>&nbsp;import javax.validation.constraints.NotBlank;
+<i class="no-highlight">14</i>&nbsp;
+<i class="no-highlight">15</i>&nbsp;@Service
+<i class="no-highlight">16</i>&nbsp;public class ProductService {
+<i class="no-highlight">17</i>&nbsp;    private final ProductRepository productRepository;
+<i class="no-highlight">18</i>&nbsp;
+<b class="fc"><i class="no-highlight">19</i>&nbsp;    ProductService(ProductRepository productRepository) {</b>
+<b class="fc"><i class="no-highlight">20</i>&nbsp;        this.productRepository = productRepository;</b>
+<b class="fc"><i class="no-highlight">21</i>&nbsp;    }</b>
+<i class="no-highlight">22</i>&nbsp;
+<i class="no-highlight">23</i>&nbsp;    public Flux&lt;Product&gt; getProducts() {
+<b class="fc"><i class="no-highlight">24</i>&nbsp;        return productRepository.findAll();</b>
+<i class="no-highlight">25</i>&nbsp;    }
+<i class="no-highlight">26</i>&nbsp;
+<i class="no-highlight">27</i>&nbsp;    public Mono&lt;Product&gt; findOneById(@Valid @NotBlank String id) {
+<b class="fc"><i class="no-highlight">28</i>&nbsp;        return productRepository.findById(id);</b>
+<i class="no-highlight">29</i>&nbsp;    }
+<i class="no-highlight">30</i>&nbsp;
+<i class="no-highlight">31</i>&nbsp;    public Product findOneByServiceName(String serviceName) {
+<b class="fc"><i class="no-highlight">32</i>&nbsp;        Flux&lt;Product&gt; productFlux = productRepository.findOneByServiceName(serviceName);</b>
+<b class="fc"><i class="no-highlight">33</i>&nbsp;        return productFlux != null ? productFlux.blockFirst() : null;</b>
+<i class="no-highlight">34</i>&nbsp;    }
+<i class="no-highlight">35</i>&nbsp;
+<i class="no-highlight">36</i>&nbsp;
+<i class="no-highlight">37</i>&nbsp;    public Mono&lt;ResponseWrapper&lt;Product&gt;&gt; saveProduct(Product product) {
+<b class="fc"><i class="no-highlight">38</i>&nbsp;        this.validateServiceName(product.getServiceName());</b>
+<b class="fc"><i class="no-highlight">39</i>&nbsp;        return productRepository.save(product).map(ResponseWrapper::success);</b>
+<i class="no-highlight">40</i>&nbsp;    }
+<i class="no-highlight">41</i>&nbsp;
+<i class="no-highlight">42</i>&nbsp;    /*Checks if the service name is unique i.e not exists in db*/
+<i class="no-highlight">43</i>&nbsp;    public void validateServiceName(String serviceName) {
+<b class="fc"><i class="no-highlight">44</i>&nbsp;        Product product = this.findOneByServiceName(serviceName);</b>
+<b class="fc"><i class="no-highlight">45</i>&nbsp;        if (product != null)</b>
+<b class="fc"><i class="no-highlight">46</i>&nbsp;            throw new BaseException(ErrorCodes.SERVICE_ALREADY_RUNNING);</b>
+<b class="fc"><i class="no-highlight">47</i>&nbsp;    }</b>
+<i class="no-highlight">48</i>&nbsp;
+<i class="no-highlight">49</i>&nbsp;    public Product validateProduct(String productId) {
+<b class="fc"><i class="no-highlight">50</i>&nbsp;        Product product = this.findOneById(productId).block();</b>
+<b class="fc"><i class="no-highlight">51</i>&nbsp;        if (product == null || !product.isActive())</b>
+<b class="fc"><i class="no-highlight">52</i>&nbsp;            throw new BaseException(ErrorCodes.INVALID_PRODUCT);</b>
+<b class="fc"><i class="no-highlight">53</i>&nbsp;        return product;</b>
+<i class="no-highlight">54</i>&nbsp;    }
+<i class="no-highlight">55</i>&nbsp;}
+</div>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+        var codeBlock = document.getElementById('sourceCode');
+
+        if (codeBlock) {
+            hljs.highlightBlock(codeBlock);
+        }
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2021-08-06 01:11</div>
+</div>
+</body>
+</html>

@@ -1,0 +1,158 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <title>Coverage Report > Customer</title>
+  <style type="text/css">
+    @import "../../.css/coverage.css";
+    @import "../../.css/highlight-idea.css";
+  </style>
+  <script type="text/javascript" src="../../.js/highlight.pack.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">com.intuit.app.entity</a>
+</div>
+
+<h1>Coverage Summary for Class: Customer (com.intuit.app.entity)</h1>
+
+<table class="coverageStats">
+
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">Customer</td>
+<td class="coverageStat">
+  <span class="percent">
+    66.7%
+  </span>
+  <span class="absValue">
+    (4/6)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    75%
+  </span>
+  <span class="absValue">
+    (6/8)
+  </span>
+</td>
+</tr>
+  <tr>
+    <td class="name">Customer$MockitoMock$2066257474</td>
+  </tr>
+  <tr>
+    <td class="name">Customer$MockitoMock$2066257474$auxiliary$bUz3A6GK</td>
+  </tr>
+  <tr>
+    <td class="name">Customer$MockitoMock$2066257474$auxiliary$ezN42HPy</td>
+  </tr>
+  <tr>
+    <td class="name">Customer$MockitoMock$2066257474$auxiliary$fsgPJUMO</td>
+  </tr>
+  <tr>
+    <td class="name">Customer$MockitoMock$2066257474$auxiliary$gjtCGnHa</td>
+  </tr>
+  <tr>
+    <td class="name">Customer$MockitoMock$2066257474$auxiliary$kagcRt0u</td>
+  </tr>
+  <tr>
+    <td class="name">Customer$MockitoMock$2066257474$auxiliary$OveXWegC</td>
+  </tr>
+  <tr>
+    <td class="name">Customer$MockitoMock$2066257474$auxiliary$syxif9Zd</td>
+  </tr>
+<tr>
+  <td class="name"><strong>Total</strong></td>
+<td class="coverageStat">
+  <span class="percent">
+    66.7%
+  </span>
+  <span class="absValue">
+    (4/6)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    75%
+  </span>
+  <span class="absValue">
+    (6/8)
+  </span>
+</td>
+</tr>
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<div class="sourceCode" id="sourceCode"><i class="no-highlight">1</i>&nbsp;package com.intuit.app.entity;
+<i class="no-highlight">2</i>&nbsp;
+<i class="no-highlight">3</i>&nbsp;import com.intuit.app.entity.business_profile.BusinessProfile;
+<i class="no-highlight">4</i>&nbsp;import lombok.AllArgsConstructor;
+<i class="no-highlight">5</i>&nbsp;import lombok.Data;
+<i class="no-highlight">6</i>&nbsp;import lombok.NoArgsConstructor;
+<i class="no-highlight">7</i>&nbsp;import org.springframework.data.annotation.Id;
+<i class="no-highlight">8</i>&nbsp;import org.springframework.data.mongodb.core.mapping.Document;
+<i class="no-highlight">9</i>&nbsp;
+<b class="fc"><i class="no-highlight">10</i>&nbsp;@Data</b>
+<b class="nc"><i class="no-highlight">11</i>&nbsp;@AllArgsConstructor</b>
+<b class="nc"><i class="no-highlight">12</i>&nbsp;@NoArgsConstructor</b>
+<i class="no-highlight">13</i>&nbsp;@Document(collection = &quot;customers&quot;)
+<i class="no-highlight">14</i>&nbsp;public class Customer {
+<i class="no-highlight">15</i>&nbsp;    @Id
+<b class="fc"><i class="no-highlight">16</i>&nbsp;    private String id;</b>
+<b class="fc"><i class="no-highlight">17</i>&nbsp;    private BusinessProfile businessProfile;</b>
+<i class="no-highlight">18</i>&nbsp;
+<b class="fc"><i class="no-highlight">19</i>&nbsp;    public Customer(String id) {</b>
+<b class="fc"><i class="no-highlight">20</i>&nbsp;        this.id = id;</b>
+<b class="fc"><i class="no-highlight">21</i>&nbsp;    }</b>
+<i class="no-highlight">22</i>&nbsp;}
+</div>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+        var codeBlock = document.getElementById('sourceCode');
+
+        if (codeBlock) {
+            hljs.highlightBlock(codeBlock);
+        }
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2021-08-06 01:11</div>
+</div>
+</body>
+</html>

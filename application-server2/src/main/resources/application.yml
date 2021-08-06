@@ -1,0 +1,10 @@
+server:
+  port: 9002
+
+spring:
+  data:
+    mongodb:
+      uri: mongodb+srv://dbuser:dbpassword@primary.ofp4b.mongodb.net/primarydb?retryWrites=true&w=majority
+
+  application:
+    name: APPLICATION-SERVER

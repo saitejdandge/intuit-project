@@ -1,0 +1,173 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <title>Coverage Report > RecordService</title>
+  <style type="text/css">
+    @import "../../.css/coverage.css";
+    @import "../../.css/highlight-idea.css";
+  </style>
+  <script type="text/javascript" src="../../.js/highlight.pack.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">com.intuit.app.service</a>
+</div>
+
+<h1>Coverage Summary for Class: RecordService (com.intuit.app.service)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">RecordService</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (1/1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    50%
+  </span>
+  <span class="absValue">
+    (2/4)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    21.4%
+  </span>
+  <span class="absValue">
+    (6/28)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<div class="sourceCode" id="sourceCode"><i class="no-highlight">1</i>&nbsp;package com.intuit.app.service;
+<i class="no-highlight">2</i>&nbsp;
+<i class="no-highlight">3</i>&nbsp;import com.intuit.app.Constants;
+<i class="no-highlight">4</i>&nbsp;import com.intuit.app.entity.Record;
+<i class="no-highlight">5</i>&nbsp;import com.intuit.app.entity.business_profile.ApprovalStatus;
+<i class="no-highlight">6</i>&nbsp;import com.intuit.app.entity.business_profile.ValidateResponse;
+<i class="no-highlight">7</i>&nbsp;import com.intuit.app.exceptions.BaseException;
+<i class="no-highlight">8</i>&nbsp;import com.intuit.app.exceptions.ErrorCodes;
+<i class="no-highlight">9</i>&nbsp;import com.intuit.app.repository.RecordRepository;
+<i class="no-highlight">10</i>&nbsp;import com.intuit.app.requests.UpdateBusinessProfileRequest;
+<i class="no-highlight">11</i>&nbsp;import org.springframework.http.HttpStatus;
+<i class="no-highlight">12</i>&nbsp;import org.springframework.stereotype.Service;
+<i class="no-highlight">13</i>&nbsp;import org.springframework.web.reactive.function.BodyInserters;
+<i class="no-highlight">14</i>&nbsp;import org.springframework.web.reactive.function.client.WebClient;
+<i class="no-highlight">15</i>&nbsp;import reactor.core.publisher.Flux;
+<i class="no-highlight">16</i>&nbsp;import reactor.core.publisher.Mono;
+<i class="no-highlight">17</i>&nbsp;
+<i class="no-highlight">18</i>&nbsp;import java.util.List;
+<i class="no-highlight">19</i>&nbsp;import java.util.Optional;
+<i class="no-highlight">20</i>&nbsp;import java.util.stream.Collectors;
+<i class="no-highlight">21</i>&nbsp;
+<i class="no-highlight">22</i>&nbsp;@Service
+<i class="no-highlight">23</i>&nbsp;public class RecordService {
+<i class="no-highlight">24</i>&nbsp;    private final RecordRepository recordRepository;
+<i class="no-highlight">25</i>&nbsp;    private final WebClient.Builder webClientBuilder;
+<i class="no-highlight">26</i>&nbsp;    private final RecordUtils recordUtils;
+<i class="no-highlight">27</i>&nbsp;
+<b class="fc"><i class="no-highlight">28</i>&nbsp;    public RecordService(RecordRepository recordRepository, WebClient.Builder webClientBuilder, RecordUtils recordUtils) {</b>
+<b class="fc"><i class="no-highlight">29</i>&nbsp;        this.recordRepository = recordRepository;</b>
+<b class="fc"><i class="no-highlight">30</i>&nbsp;        this.webClientBuilder = webClientBuilder;</b>
+<b class="fc"><i class="no-highlight">31</i>&nbsp;        this.recordUtils = recordUtils;</b>
+<b class="fc"><i class="no-highlight">32</i>&nbsp;    }</b>
+<i class="no-highlight">33</i>&nbsp;
+<i class="no-highlight">34</i>&nbsp;    public Mono&lt;Record&gt; save(Record record) {
+<b class="fc"><i class="no-highlight">35</i>&nbsp;        return recordRepository.save(record);</b>
+<i class="no-highlight">36</i>&nbsp;    }
+<i class="no-highlight">37</i>&nbsp;
+<i class="no-highlight">38</i>&nbsp;    public Record requestForProductApprovals(Record record, UpdateBusinessProfileRequest updateBusinessProfileRequest) {
+<i class="no-highlight">39</i>&nbsp;        /*Calling multiple products validate API*/
+<b class="nc"><i class="no-highlight">40</i>&nbsp;        List&lt;String&gt; endPoints = record.getProductApprovals().values().stream().map(Record.ProductApproval::getProductServiceName).collect(Collectors.toList());</b>
+<b class="nc"><i class="no-highlight">41</i>&nbsp;        Optional&lt;Flux&lt;ValidateResponse&gt;&gt; finalFlux =</b>
+<b class="nc"><i class="no-highlight">42</i>&nbsp;                endPoints.stream()</b>
+<b class="nc"><i class="no-highlight">43</i>&nbsp;                        .map(serviceName -&gt; webClientBuilder</b>
+<b class="nc"><i class="no-highlight">44</i>&nbsp;                                .build()</b>
+<b class="nc"><i class="no-highlight">45</i>&nbsp;                                .post()</b>
+<b class="nc"><i class="no-highlight">46</i>&nbsp;                                .uri(Constants.buildValidationUrl(serviceName))</b>
+<b class="nc"><i class="no-highlight">47</i>&nbsp;                                .body(BodyInserters.fromValue(updateBusinessProfileRequest))</b>
+<b class="nc"><i class="no-highlight">48</i>&nbsp;                                .retrieve()</b>
+<b class="nc"><i class="no-highlight">49</i>&nbsp;                                .onStatus(HttpStatus::isError, response -&gt; Mono.error(new BaseException(serviceName + ErrorCodes.PRODUCT_SERVICE_DOWN.getMessage(), ErrorCodes.PRODUCT_SERVICE_DOWN.getOpStatus(), ErrorCodes.PRODUCT_SERVICE_DOWN.getStatusCode())))</b>
+<b class="nc"><i class="no-highlight">50</i>&nbsp;                                .bodyToFlux(ValidateResponse.class))</b>
+<b class="nc"><i class="no-highlight">51</i>&nbsp;                        .reduce(Flux::merge);</b>
+<b class="nc"><i class="no-highlight">52</i>&nbsp;        if (finalFlux.isPresent()) {</b>
+<b class="nc"><i class="no-highlight">53</i>&nbsp;            Flux&lt;ValidateResponse&gt; responseFlux = finalFlux.get();</b>
+<b class="nc"><i class="no-highlight">54</i>&nbsp;            for (ValidateResponse i : responseFlux.log().toIterable()) {</b>
+<i class="no-highlight">55</i>&nbsp;
+<i class="no-highlight">56</i>&nbsp;                ApprovalStatus approvalStatus;
+<b class="nc"><i class="no-highlight">57</i>&nbsp;                approvalStatus = i.getApprovalStatus() != null ? i.getApprovalStatus() : ApprovalStatus.NOT_REACHABLE;</b>
+<b class="nc"><i class="no-highlight">58</i>&nbsp;                Record.ProductApproval productApproval = record.getProductApprovals().get(i.getProductId());</b>
+<b class="nc"><i class="no-highlight">59</i>&nbsp;                productApproval.setApprovalStatus(approvalStatus);</b>
+<b class="nc"><i class="no-highlight">60</i>&nbsp;                record.getProductApprovals().put(i.getProductId(), productApproval);</b>
+<b class="nc"><i class="no-highlight">61</i>&nbsp;            }</b>
+<i class="no-highlight">62</i>&nbsp;        }
+<b class="nc"><i class="no-highlight">63</i>&nbsp;        record.setOverallStatus(recordUtils.getOverallApprovalStatus(record));</b>
+<b class="nc"><i class="no-highlight">64</i>&nbsp;        return record;</b>
+<i class="no-highlight">65</i>&nbsp;    }
+<i class="no-highlight">66</i>&nbsp;
+<i class="no-highlight">67</i>&nbsp;
+<i class="no-highlight">68</i>&nbsp;}
+</div>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+        var codeBlock = document.getElementById('sourceCode');
+
+        if (codeBlock) {
+            hljs.highlightBlock(codeBlock);
+        }
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2021-08-06 01:11</div>
+</div>
+</body>
+</html>
